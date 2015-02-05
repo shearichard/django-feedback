@@ -6,9 +6,6 @@ from feedback.forms import AnonymousFeedbackForm, FeedbackForm
 
 
 def leave_feedback(request, template_name='feedback/feedback_form.html'):
-    print "In leave feedback 3"
-    print request.method
-    print "In leave feedback 4"
     if request.method == "GET":
         nexturl = request.GET.get('next')
     else:
@@ -27,14 +24,8 @@ def leave_feedback(request, template_name='feedback/feedback_form.html'):
         feedback.save()
         messages.add_message(request, messages.SUCCESS,
                              'Your feedback was submitted.')
-        print "In leave feedback 1"
-        print nexturl
-        print request.POST.get('next')
-        print request.GET.get('next')
-        print request.META.get('HTTP_REFERER', '/')
-        print (request.POST.get('next', request.META.get('HTTP_REFERER', '/')))
-        print "In leave feedback 2"
         return HttpResponseRedirect(nexturl)
+
     return render_to_response(
                                 template_name, 
                                 {
